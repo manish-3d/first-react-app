@@ -1,4 +1,6 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+
 
 function Button({ text, color, fontSize, handleclick, counting }) {
   const buttonStyle = {
@@ -53,6 +55,28 @@ export default function Apple() {
   );
 }
 
+export  function Clock() {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+      });
+
+  }, []);
+
+  return (
+    <div>
+      {users.map(user => (
+        <p key={user.id}>{user.name}</p>
+      ))}
+    </div>
+  );
+}
 export function Person() {
   const [person, setPerson] = useState({
     name: "John",
